@@ -1,12 +1,29 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   webpack(config) {
-    // Add rule for SVG imports
+    // Exclude SVG from Next.js's default file loader
+    const fileLoaderRule = config.module.rules.find(
+      (rule) => rule.test && rule.test.test?.(".svg"),
+    );
+    if (fileLoaderRule) {
+      fileLoaderRule.exclude = /\.svg$/i;
+    }
+
+    // Add SVGR loader
     config.module.rules.push({
       test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/, // applies only to JS/TS files
-      use: ["@svgr/webpack"],
+      issuer: /\.[jt]sx?$/,
+      use: [
+        {
+          loader: "@svgr/webpack",
+          options: {
+            icon: true,
+            svgo: true,
+          },
+        },
+      ],
     });
+
     return config;
   },
   images: {
