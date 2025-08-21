@@ -1,9 +1,10 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   webpack(config) {
+    // Add rule for SVG imports
     config.module.rules.push({
       test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
+      issuer: /\.[jt]sx?$/, // applies only to JS/TS files
       use: ["@svgr/webpack"],
     });
     return config;
