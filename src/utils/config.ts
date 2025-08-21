@@ -1,0 +1,9 @@
+export const CLOUDINARYURL: string = process.env.CLOUDINARY_URL ?? "";
+export const CLOUDINARYKEY: string = process.env.CLOUDINARY_KEY ?? "";
+export const CLOUDINARYSECRET: string = process.env.CLOUDINARY_SECRET ?? "";
+export const CLOUDINARYNAME: string = process.env.CLOUDINARY_NAME ?? "";
+export const CLOUDINARY_FOLDER: string = process.env.CLOUDINARY_FOLDER ?? "";
+export const DBHST: string = process.env.MARIADB_HOST ?? "";
+export const DBUSR: string = process.env.MARIADB_USER ?? "";
+export const DBPS: string = process.env.MARIADB_PASSWORD ?? "";
+export const DB: string = process.env.MARIADB_DBNME ?? "";
