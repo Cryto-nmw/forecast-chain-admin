@@ -27,7 +27,9 @@ export const ClientMultipleFilesUploadButton = ({
 
     setFiles((prev) => [...prev, ...selectedFiles]);
     // Reset input so user can reselect same file later if needed
+
     if (inputRef.current) {
+      // @ts-ignore
       inputRef.current.value = "";
     }
   };
