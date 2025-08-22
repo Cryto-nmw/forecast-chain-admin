@@ -4,9 +4,8 @@ import mysql, { Connection, ConnectionOptions } from "mysql2/promise";
 import { RowDataPacket } from "mysql2";
 import { DBHST, DBUSR, DBPS, DB } from "@/utils/config";
 import { DbUser } from "@/utils/types";
-// import { cloudinaryConfig as cloudnry } from "@/utils/cloudinary";
 // @ts-ignore
-import streamifier from "streamifier";
+// import streamifier from "streamifier";
 import { randomUUID } from "crypto";
 import { auth } from "@/auth";
 
