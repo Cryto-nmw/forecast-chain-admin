@@ -13,7 +13,7 @@ import CoverPhoto05 from "@/assets/images/cover/cover-05.jpg";
 
 type AgentProfilePageProps = {
   params: {
-    agentID: String;
+    agentID: string;
   };
 };
 
