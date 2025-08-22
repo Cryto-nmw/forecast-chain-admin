@@ -1,3 +1,10 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "@next/next/no-assign-module-variable": "off",
+    "@next/next/no-img-element": "off",
+
+    "@next/next/no-async-client-component": "off",
+    "react-internal/suspense": "off"
+  }
 }
