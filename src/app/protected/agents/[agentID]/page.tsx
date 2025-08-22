@@ -17,7 +17,8 @@ type MyPageProps = {
   };
 };
 
-export default async function AgentProfilePage({ params }: MyPageProps) {
+// @ts-ignore
+export default async function AgentProfilePage({ params }) {
   const agentIDNumber = Number(params.agentID); // convert to number
   const num: number = Math.floor(Math.random() * 5) + 1;
   let coverPhoto;
