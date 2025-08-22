@@ -4,7 +4,7 @@ import mysql, { Connection, ConnectionOptions } from "mysql2/promise";
 import { RowDataPacket } from "mysql2";
 import { DBHST, DBUSR, DBPS, DB } from "@/utils/config";
 import { DbUser } from "@/utils/types";
-import { cloudinaryConfig as cloudnry } from "@/utils/cloudinary";
+// import { cloudinaryConfig as cloudnry } from "@/utils/cloudinary";
 // @ts-ignore
 import streamifier from "streamifier";
 import { randomUUID } from "crypto";
@@ -42,27 +42,27 @@ export async function getUserFromDb(
 
   return rows.length > 0 ? (rows[0] as DbUser) : null;
 }
-export async function uploadImages(formData: FormData) {
-  const files = formData.getAll("files") as File[];
-  if (files.length === 0) throw new Error("No files provided");
+// export async function uploadImages(formData: FormData) {
+//   const files = formData.getAll("files") as File[];
+//   if (files.length === 0) throw new Error("No files provided");
 
-  const uploadOne = async (file: File) => {
-    const buffer = Buffer.from(await file.arrayBuffer());
-    return new Promise<any>((resolve, reject) => {
-      const stream = cloudnry.uploader.upload_stream(
-        { resource_type: "auto" },
-        (error, result) => {
-          if (error) reject(error);
-          else resolve(result);
-        },
-      );
-      streamifier.createReadStream(buffer).pipe(stream);
-    });
-  };
+//   const uploadOne = async (file: File) => {
+//     const buffer = Buffer.from(await file.arrayBuffer());
+//     return new Promise<any>((resolve, reject) => {
+//       const stream = cloudnry.uploader.upload_stream(
+//         { resource_type: "auto" },
+//         (error, result) => {
+//           if (error) reject(error);
+//           else resolve(result);
+//         },
+//       );
+//       streamifier.createReadStream(buffer).pipe(stream);
+//     });
+//   };
 
-  const results = await Promise.all(files.map((file) => uploadOne(file)));
-  return results;
-}
+//   const results = await Promise.all(files.map((file) => uploadOne(file)));
+//   return results;
+// }
 
 export const fetchAgent = async (
   agentID: number,

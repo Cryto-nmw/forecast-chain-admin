@@ -13,7 +13,7 @@ import CoverPhoto05 from "@/assets/images/cover/cover-05.jpg";
 
 type AgentProfilePageProps = {
   params: {
-    agentID: number;
+    agentID: String;
   };
 };
 
@@ -34,7 +34,8 @@ export default async function AgentProfilePage({
   } else {
     coverPhoto = CoverPhoto05;
   }
-  const agent = await fetchAgent(agentID);
+  const agentIDNumber = Number(agentID);
+  const agent = await fetchAgent(agentIDNumber);
   return (
     <>
       {agent ? (
