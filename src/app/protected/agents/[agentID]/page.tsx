@@ -11,11 +11,13 @@ import CoverPhoto03 from "@/assets/images/cover/cover-03.jpg";
 import CoverPhoto04 from "@/assets/images/cover/cover-04.jpg";
 import CoverPhoto05 from "@/assets/images/cover/cover-05.jpg";
 
-type AgentProfilePageProps = {
-  params: {
-    agentID: string; // Always string, because URL params are strings
-  };
-};
+type WithParams<T extends Record<string, string>> = {
+  params: T;
+} & Record<string, unknown>; // allows other properties
+
+type AgentProfilePageProps = WithParams<{
+  agentID: string;
+}>;
 
 export default async function AgentProfilePage({
   params,
