@@ -17,7 +17,7 @@ interface PageProps {
   };
 }
 
-export default function AgentProfilePage({ params }: PageProps) {
+export default async function AgentProfilePage({ params }: PageProps) {
   const { agentID } = params;
   const num: number = Math.floor(Math.random() * 5) + 1;
   let coverPhoto;
