@@ -13,12 +13,12 @@ import CoverPhoto05 from "@/assets/images/cover/cover-05.jpg";
 
 interface PageProps {
   params: {
-    agentID: string;
+    agentID: Promise<{ agentID: string }>;
   };
 }
 
 export default async function AgentProfilePage({ params }: PageProps) {
-  const { agentID } = params;
+  const { agentID } = await params;
   const num: number = Math.floor(Math.random() * 5) + 1;
   let coverPhoto;
   if (num == 1) {
