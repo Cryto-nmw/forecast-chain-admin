@@ -1,5 +1,6 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Image from "next/image";
+import type { PageProps } from "next";
 
 // import { useState, useEffect } from "react";
 import { fetchAgent } from "@/utils/db";
@@ -11,15 +12,9 @@ import CoverPhoto03 from "@/assets/images/cover/cover-03.jpg";
 import CoverPhoto04 from "@/assets/images/cover/cover-04.jpg";
 import CoverPhoto05 from "@/assets/images/cover/cover-05.jpg";
 
-type AgentProfilePageProps = {
-  params: {
-    agentID: string;
-  };
-};
-
 export default async function AgentProfilePage({
   params,
-}: AgentProfilePageProps) {
+}: PageProps<{ agentID: string }>) {
   const { agentID } = params;
   const num: number = Math.floor(Math.random() * 5) + 1;
   let coverPhoto;
