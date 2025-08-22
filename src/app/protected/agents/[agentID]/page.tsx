@@ -13,7 +13,9 @@ import CoverPhoto05 from "@/assets/images/cover/cover-05.jpg";
 
 interface PageProps {
   params: {
-    agentID: string;
+    agentID: Promise<{
+      agentID: string;
+    }>;
   };
 }
 
