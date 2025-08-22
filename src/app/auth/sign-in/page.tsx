@@ -1,6 +1,7 @@
 import Signin from "@/components/Auth/Signin";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,7 +18,9 @@ export default function SignIn() {
         <div className="flex flex-wrap items-center">
           <div className="w-full xl:w-1/2">
             <div className="w-full p-4 sm:p-12.5 xl:p-15">
-              <Signin />
+              <Suspense fallback={<div>Loading...</div>}>
+                <Signin />
+              </Suspense>
             </div>
           </div>
 
