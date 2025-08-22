@@ -1,29 +1,9 @@
+import svgr from "next-plugin-svgr";
+
 /** @type {import("next").NextConfig} */
 const nextConfig = {
-  webpack(config) {
-    // Exclude SVG from Next.js's default file loader
-    const fileLoaderRule = config.module.rules.find(
-      (rule) => rule.test && rule.test.test?.(".svg"),
-    );
-    if (fileLoaderRule) {
-      fileLoaderRule.exclude = /\.svg$/i;
-    }
-
-    // Add SVGR loader
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: [
-        {
-          loader: "@svgr/webpack",
-          options: {
-            icon: true,
-            svgo: true,
-          },
-        },
-      ],
-    });
-
+  webpack: (config) => {
+    svgr(config);
     return config;
   },
   images: {
