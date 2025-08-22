@@ -11,13 +11,15 @@ import CoverPhoto03 from "@/assets/images/cover/cover-03.jpg";
 import CoverPhoto04 from "@/assets/images/cover/cover-04.jpg";
 import CoverPhoto05 from "@/assets/images/cover/cover-05.jpg";
 
-interface PageProps {
+interface AgentProfilePageProps {
   params: {
     agentID: string;
   };
+  [key: string]: unknown; // allow other injected props
 }
-
-export default async function AgentProfilePage({ params }: PageProps) {
+export default async function AgentProfilePage({
+  params,
+}: AgentProfilePageProps) {
   const agentIDNumber = Number(params.agentID); // convert to number
   const num: number = Math.floor(Math.random() * 5) + 1;
   let coverPhoto;
