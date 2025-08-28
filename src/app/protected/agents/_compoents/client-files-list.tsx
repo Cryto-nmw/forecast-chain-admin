@@ -110,7 +110,7 @@ export function FilesList({
               </TableCell>
 
               <TableCell className="!text-right text-green-light-1">
-                ${standardFormat(file.size)}
+                {standardFormat(file.size)}
               </TableCell>
               <TableCell className="!text-right text-green-light-1">
                 <Button

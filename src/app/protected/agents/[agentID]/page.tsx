@@ -20,7 +20,7 @@ type MyPageProps = {
 
 // @ts-ignore
 export default async function AgentProfilePage({ params }) {
-  const { agentID } = await params; // ✅ now safe
+  const { agentID } = await params;
   const agentIDNumber = Number(agentID); // convert to number
   const num: number = Math.floor(Math.random() * 5) + 1;
   let coverPhoto;
@@ -140,13 +140,7 @@ export default async function AgentProfilePage({ params }) {
                     About This Agent
                   </h4>
                   <AgentFilesList agentId={agentIDNumber} />
-                  <p className="mt-4">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Pellentesque posuere fermentum urna, eu condimentum mauris
-                    tempus ut. Donec fermentum blandit aliquet. Etiam dictum
-                    dapibus ultricies. Sed vel aliquet libero. Nunc a augue
-                    fermentum, pharetra ligula sed, aliquam lacus.
-                  </p>
+                  <p className="mt-4">{agent.description} </p>
                 </div>
               </div>
             </div>

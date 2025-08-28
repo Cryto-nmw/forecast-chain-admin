@@ -1,11 +1,5 @@
 "use client";
-import {
-  useRef,
-  useState,
-  type RefObject,
-  type Dispatch,
-  type SetStateAction,
-} from "react";
+import { useRef, type Dispatch, type SetStateAction } from "react";
 import InputGroup from "@/components/FormElements/InputGroup";
 import { ShowcaseSection } from "@/components/Layouts/showcase-section";
 
@@ -50,7 +44,8 @@ export const ClientMultipleFilesUploadButton = ({
           multiple={true}
           ref={inputRef}
           handleChange={handleFileChange}
-          accept=".doc,.docx,.pdf,.png,.jpg,.jpeg"
+          // accept=".doc,.docx,.pdf,.png,.jpg,.jpeg"
+          accept=".pdf,.png,.jpg,.jpeg"
         />
         <FilesList removeFile={handleRemoveFile} files={files} />
       </ShowcaseSection>

@@ -1,5 +1,5 @@
 "use server";
-import { AgentForm } from "./_compoents/AgentForm";
+import { AgentForm } from "../_compoents/AgentForm";
 export default async function AgentFormPage() {
   return (
     <>
