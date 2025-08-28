@@ -3,10 +3,17 @@
 import { ChevronUpIcon } from "@/assets/icons";
 import flatpickr from "flatpickr";
 import { useEffect } from "react";
+import { RefObject } from "react";
 
-const DatePickerTwo = () => {
+type StarEndPickerProps = {
+  ref?: RefObject<HTMLInputElement | null>;
+  name?: string;
+  label?: string;
+};
+
+const DatePickerTwo = ({ label, ...props }: StarEndPickerProps) => {
   useEffect(() => {
-    // Init flatpickr
+    // Init flatpickr/
     flatpickr(".form-datepicker", {
       mode: "single",
       static: true,
@@ -18,10 +25,11 @@ const DatePickerTwo = () => {
   return (
     <div>
       <label className="mb-3 block text-body-sm font-medium text-dark dark:text-white">
-        Select date
+        {label}
       </label>
       <div className="relative">
         <input
+          {...props}
           className="form-datepicker w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal outline-none transition focus:border-primary active:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary"
           placeholder="mm/dd/yyyy"
           data-class="flatpickr-right"

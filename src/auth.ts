@@ -71,13 +71,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  secret: process.env.AUTH_SECRET,
   pages: {
     signIn: "/auth/sign-in", // Redirect here on error
   },
   session: {
     strategy: "jwt",
   },
-  secret: process.env.AUTH_SECRET,
   callbacks: {
     async jwt({ token, user }) {
       // When user logs in, attach their DB id/admin_id into the token

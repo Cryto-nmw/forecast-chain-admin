@@ -14,3 +14,8 @@ export interface AgentRowDataPacket extends RowDataPacket {
   email: string;
   phone: string;
 }
+
+export type DeleteResponse = {
+  success: boolean;
+  message: string;
+};

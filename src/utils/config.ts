@@ -7,3 +7,8 @@ export const DBHST: string = process.env.MARIADB_HOST ?? "";
 export const DBUSR: string = process.env.MARIADB_USER ?? "";
 export const DBPS: string = process.env.MARIADB_PASSWORD ?? "";
 export const DB: string = process.env.MARIADB_DBNME ?? "";
+export const OUTLOOK_ADDRESS: string = process.env.OUTLOOK_USER ?? "";
+export const OUTLOOK_PASS: string = process.env.OUTLOOK_PASS ?? "";
+
+export const OVERALL_PAGINATION_PER_PAGE_SIZE: string =
+  process.env.OVERALL_PAGINATION_PER_PAGE_SIZE ?? "10";

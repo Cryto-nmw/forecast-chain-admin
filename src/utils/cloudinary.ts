@@ -25,6 +25,37 @@ async function fileToStream(file: File): Promise<Readable> {
   return stream;
 }
 
+export async function deleteAgentFile(fileId: number) {
+  const connection = await connectToDB();
+
+  try {
+    // 1. Fetch file record by primary key
+    const [rows]: any = await connection.execute(
+      "SELECT public_id FROM agent_files WHERE id = ?",
+      [fileId],
+    );
+
+    if (!rows || rows.length === 0) {
+      return { success: false, message: "File not found" };
+    }
+
+    const publicId = rows[0].public_id;
+
+    // 2. Delete from Cloudinary
+    await cloudinary.uploader.destroy(publicId);
+
+    // 3. Delete row from DB
+    await connection.execute("DELETE FROM agent_files WHERE id = ?", [fileId]);
+
+    return { success: true, message: "File deleted successfully" };
+  } catch (error) {
+    console.error("Error deleting agent file:", error);
+    return { success: false, message: "Failed to delete file" };
+  } finally {
+    await connection.end();
+  }
+}
+
 export async function uploadFilesAndSave(files: File[], agentId: number) {
   const conn = await connectToDB();
 
@@ -41,7 +72,7 @@ export async function uploadFilesAndSave(files: File[], agentId: number) {
                 // Insert into DB
                 const fileType = mapMimeToFileType(file.type);
                 await conn.query(
-                  "INSERT INTO agent_files (agent_id, filename, file_type, url, public_id) VALUES (?, ?, ?, ?)",
+                  "INSERT INTO agent_files (agent_id, filename, file_type, url, public_id) VALUES (?, ?, ?, ?,?)",
                   [
                     agentId,
                     file.name,

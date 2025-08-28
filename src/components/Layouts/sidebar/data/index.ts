@@ -30,8 +30,8 @@ export const NAV_DATA = [
         ],
       },
       {
-        title: "Deployed Templates",
-        url: "/protected/deployed-templates",
+        title: "Deployed Contracts",
+        url: "/protected/contracts",
         icon: Icons.ContractIcon,
         items: [],
       },

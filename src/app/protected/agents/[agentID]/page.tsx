@@ -1,5 +1,6 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Image from "next/image";
+import AgentFilesList from "./_components/agent-files";
 
 // import { useState, useEffect } from "react";
 import { fetchAgent } from "@/utils/db";
@@ -19,7 +20,8 @@ type MyPageProps = {
 
 // @ts-ignore
 export default async function AgentProfilePage({ params }) {
-  const agentIDNumber = Number(params.agentID); // convert to number
+  const { agentID } = await params; // ✅ now safe
+  const agentIDNumber = Number(agentID); // convert to number
   const num: number = Math.floor(Math.random() * 5) + 1;
   let coverPhoto;
   if (num == 1) {
@@ -137,6 +139,7 @@ export default async function AgentProfilePage({ params }) {
                   <h4 className="font-medium text-dark dark:text-white">
                     About This Agent
                   </h4>
+                  <AgentFilesList agentId={agentIDNumber} />
                   <p className="mt-4">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Pellentesque posuere fermentum urna, eu condimentum mauris

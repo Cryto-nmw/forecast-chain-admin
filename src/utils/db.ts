@@ -24,6 +24,12 @@ export const connectToDB = async (): Promise<Connection> => {
   return connection;
 };
 
+export async function closeDb(conn: mysql.Connection) {
+  if (conn) {
+    await conn.end();
+  }
+}
+
 /**
  * Retrieves a user record by username from MariaDB.
  * @param username - The username to look up.
@@ -62,6 +68,58 @@ export async function getUserFromDb(
 //   const results = await Promise.all(files.map((file) => uploadOne(file)));
 //   return results;
 // }
+
+export async function getAgentFiles(agentId: number) {
+  const conn = await connectToDB();
+  const [rows] = await conn.execute(
+    `SELECT id, filename, file_type, url, public_id, created_at 
+     FROM agent_files 
+     WHERE agent_id = ? 
+     ORDER BY created_at DESC`,
+    [agentId],
+  );
+
+  // await closeDb(conn);
+
+  // rows is RowDataPacket[] (mysql2 type)
+  return rows as {
+    id: number;
+    filename: string;
+    file_type: "pdf" | "png" | "jpg" | "doc" | "docx";
+    url: string;
+    public_id: string;
+    created_at: string;
+  }[];
+}
+
+export async function getAgentPrimaryKey(
+  agentId: string,
+): Promise<number | null> {
+  const conn = await connectToDB();
+
+  try {
+    const [rows] = await conn.execute<RowDataPacket[]>(
+      `
+      SELECT id
+      FROM agents
+      WHERE agent_id = ?
+      LIMIT 1
+      `,
+      [agentId],
+    );
+
+    if (rows.length > 0) {
+      return rows[0].id;
+    }
+
+    return null; // not found
+  } catch (err) {
+    console.error("Error fetching agent primary key:", err);
+    throw err;
+  } finally {
+    await conn.end();
+  }
+}
 
 export const fetchAgent = async (
   agentID: number,
