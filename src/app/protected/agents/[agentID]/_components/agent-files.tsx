@@ -16,7 +16,7 @@ import { AgentActionBtns } from "./agent-action-btns";
 
 type Props = {
   agentId: number;
-  className: string;
+  className?: string;
 };
 
 export default async function AgentFilesList({ agentId, className }: Props) {
