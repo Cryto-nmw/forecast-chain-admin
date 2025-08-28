@@ -8,6 +8,8 @@ import DatePickerOne from "@/components/FormElements/DatePicker/DatePickerOne";
 import { ShowcaseSection } from "@/components/Layouts/showcase-section";
 import InputGroup from "@/components/FormElements/InputGroup";
 
+// import { XIcon, ChevronUpIcon } from "@/assets/icons";
+
 export default function AgentFilterForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -18,10 +20,7 @@ export default function AgentFilterForm() {
 
   const startDateRef = useRef<HTMLInputElement>(null);
   const endDateRef = useRef<HTMLInputElement>(null);
-
-  const agentNameOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setAgentName(e.target.value);
-  };
+  const agentNameRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,9 +33,10 @@ export default function AgentFilterForm() {
 
     if (endDateRef.current?.value)
       params.set("endDate", endDateRef.current?.value);
-    if (agentName) params.set("agentName", agentName);
+    if (agentNameRef.current?.value)
+      params.set("agentName", agentNameRef.current?.value);
 
-    router.push(`/protected/contracts?${params.toString()}`);
+    router.push(`/protected/agents/list?${params.toString()}`);
   };
 
   return (
@@ -59,8 +59,9 @@ export default function AgentFilterForm() {
                 label="Agent Name"
                 placeholder=""
                 type="text"
-                handleChange={agentNameOnChange}
+                ref={agentNameRef}
               />
+
               <Button label="Filter" variant="outlinePrimary" shape="rounded" />
             </ShowcaseSection>
           </div>

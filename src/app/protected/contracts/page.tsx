@@ -100,9 +100,6 @@ export default async function DeployedContractsPage(props: {
 
   values.push(PAGE_SIZE, offset);
 
-  console.log("Executed SQL:", countSql);
-  console.log("With values:", countValue);
-
   // Get contracts with LIMIT and OFFSET
   const [rows] = await conn.execute<RowDataPacket[]>(`${sql}`, values);
 

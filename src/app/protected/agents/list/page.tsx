@@ -114,8 +114,12 @@ export default async function DeployedContractsPage(props: {
 
   sql += ` ORDER BY created_at DESC LIMIT ? OFFSET ?`;
 
+  console.log("Executed SQL:", countSql);
+  console.log("With values:", countValue);
+
   values.push(PAGE_SIZE, offset);
   // Get contracts with LIMIT and OFFSET
+
   const [rows] = await conn.execute<RowDataPacket[]>(`${sql}`, values);
 
   const data = rows as AgentRow[];
@@ -231,7 +235,7 @@ export default async function DeployedContractsPage(props: {
           <div className="flex gap-2">
             {pageNumber > 1 && (
               <Link
-                href={`/protected/contracts?page=${pageNumber - 1}&agentName=${agentName}&startDate=${startDate}&endDate=${endDate}`}
+                href={`/protected/agents/list?page=${pageNumber - 1}&agentName=${agentName}&startDate=${startDate}&endDate=${endDate}`}
                 className="rounded border px-3 py-1 hover:bg-gray-100"
               >
                 Previous
@@ -239,7 +243,7 @@ export default async function DeployedContractsPage(props: {
             )}
             {pageNumber < totalPages && (
               <Link
-                href={`/protected/contracts?page=${pageNumber + 1}&agentName=${agentName}&startDate=${startDate}&endDate=${endDate}`}
+                href={`/protected/agents/list?page=${pageNumber + 1}&agentName=${agentName}&startDate=${startDate}&endDate=${endDate}`}
                 className="rounded border px-3 py-1 hover:bg-gray-100"
               >
                 Next
