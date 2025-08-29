@@ -23,6 +23,7 @@ export const AgentStatusIndicator = ({
       let agent;
       try {
         agent = await fetchAgent(agentID);
+        // @ts-ignore
         setCurrentState(agent.state); // assuming API returns { state: "active" }
       } catch (error) {
         console.error("Error fetching agent:", error);
