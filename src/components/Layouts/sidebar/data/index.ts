@@ -35,6 +35,12 @@ export const NAV_DATA = [
         icon: Icons.ContractIcon,
         items: [],
       },
+      {
+        title: "Verification Tokens",
+        url: "/protected/agents/verification-list",
+        icon: Icons.Authentication,
+        items: [],
+      },
 
       // {
       //   title: "Calendar",

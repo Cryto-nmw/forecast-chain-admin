@@ -9,7 +9,7 @@ import { DbUser } from "@/utils/types";
 import { randomUUID } from "crypto";
 import { auth } from "@/auth";
 
-import { AgentRowDataPacket } from "@/types/agent"; // the type we defined earlier
+import { AgentRowDataPacket, AgentVerificationTokenRow } from "@/types/agent"; // the type we defined earlier
 
 import crypto from "crypto";
 
@@ -173,6 +173,23 @@ export async function getAgentPrimaryKey(
     await conn.end();
   }
 }
+
+export const fetchAVT = async (
+  tokenId: number,
+): Promise<AgentVerificationTokenRow | null> => {
+  const connection = await connectToDB();
+
+  const [rows] = await connection.execute<AgentVerificationTokenRow[]>(
+    "SELECT id, agent_id, status FROM agent_verification_tokens WHERE id = ?",
+    [tokenId],
+  );
+
+  if (rows.length === 0) {
+    return null;
+  }
+
+  return rows[0];
+};
 
 export const fetchAgent = async (
   agentID: number,
