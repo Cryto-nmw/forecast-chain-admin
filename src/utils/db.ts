@@ -180,7 +180,7 @@ export const fetchAgent = async (
   const connection = await connectToDB();
 
   const [rows] = await connection.execute<AgentRowDataPacket[]>(
-    "SELECT id, agent_id, name, email, phone FROM agents WHERE id = ?",
+    "SELECT id, agent_id, name, email, phone, state FROM agents WHERE id = ?",
     [agentID],
   );
 

@@ -6,11 +6,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { cn } from "@/lib/utils";
+
 import dayjs from "dayjs";
 import { SecretAgentIcon } from "@/assets/icons";
 import type { RowDataPacket } from "mysql2";
 import AgentFilterForm from "../_compoents/agent-filter-form";
+import { AgentStatusIndicator } from "../_compoents/agent-status";
 
 import { SendVerificationBtn } from "../_compoents/send-verification-btn";
 
@@ -178,7 +179,11 @@ export default async function DeployedContractsPage(props: {
                     </TableCell>
 
                     <TableCell>
-                      <div
+                      <AgentStatusIndicator
+                        state={agent.state}
+                        agentId={agent.id}
+                      />
+                      {/* <div
                         className={cn(
                           "max-w-fit rounded-full px-3.5 py-1 text-sm font-medium",
                           {
@@ -192,7 +197,7 @@ export default async function DeployedContractsPage(props: {
                         )}
                       >
                         {agent.state}
-                      </div>
+                      </div> */}
                     </TableCell>
 
                     <TableCell className="xl:pr-7.5">
