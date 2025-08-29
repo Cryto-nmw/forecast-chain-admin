@@ -20,9 +20,15 @@ export const AgentStatusIndicator = ({
     const agentID = Number(agentId);
     setLoading(true);
     try {
-      const agent = await fetchAgent(agentID);
-      console.log("Fetched agent:", agent);
-      setCurrentState(agent.state); // assuming API returns { state: "active" }
+      let agent;
+      try {
+        agent = await fetchAgent(agentID);
+        setCurrentState(agent.state); // assuming API returns { state: "active" }
+      } catch (error) {
+        console.error("Error fetching agent:", error);
+        setLoading(false);
+        return;
+      }
     } catch (error) {
       console.error("Error fetching agent status:", error);
     } finally {
