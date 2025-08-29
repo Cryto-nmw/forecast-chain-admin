@@ -1,10 +1,9 @@
 import { verifyAgentToken } from "@/utils/verify-agent-token";
 
-export default async function AgentVerificationPage({
-  params,
-}: {
-  params: { token: string };
+export default async function AgentVerificationPage(props: {
+  params: Promise<{ token: string }>;
 }) {
+  const params = await props.params;
   const result = await verifyAgentToken(params.token);
 
   return (
