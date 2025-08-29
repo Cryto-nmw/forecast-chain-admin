@@ -8,11 +8,11 @@ import {
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import dayjs from "dayjs";
-import { DownloadIcon, PreviewIcon } from "@/assets/icons2";
-import { TrashIcon } from "@/assets/icons";
 import { SecretAgentIcon } from "@/assets/icons";
 import type { RowDataPacket } from "mysql2";
 import AgentFilterForm from "../_compoents/agent-filter-form";
+
+import { SendVerificationBtn } from "../_compoents/send-verification-btn";
 
 import { connectToDB, getAgentPrimaryKey } from "@/utils/db";
 import { OVERALL_PAGINATION_PER_PAGE_SIZE } from "@/utils/config";
@@ -204,12 +204,9 @@ export default async function DeployedContractsPage(props: {
                           </Link>
                         </button>
 
-                        {/* <button className="hover:text-primary">
-                          <span className="sr-only">Delete Invoice</span>
-                          <TrashIcon />
-                        </button>
+                        <SendVerificationBtn agentId={Number(agent.id)} />
 
-                        <button className="hover:text-primary">
+                        {/* <button className="hover:text-primary">
                           <span className="sr-only">Download Invoice</span>
                           <DownloadIcon />
                         </button> */}

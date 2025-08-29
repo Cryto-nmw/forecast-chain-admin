@@ -3,6 +3,8 @@
 
 // import { redirect } from "next/navigation";
 
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 import { Header } from "@/components/Layouts/public-header";
 
 export default async function ProtectedLayout({
@@ -11,6 +13,10 @@ export default async function ProtectedLayout({
   children: React.ReactNode;
 }) {
   // Correct: pass cookies() directly, do NOT await
+  const session = await auth();
+  if (session?.user) {
+    redirect("/protected/dashboard");
+  }
 
   return (
     <>

@@ -20,6 +20,7 @@ export async function Header() {
         <ThemeToggleSwitch />
       </div> */}
       <ThemeToggleButton />
+
       <SignOutAdminBtn />
     </header>
   );

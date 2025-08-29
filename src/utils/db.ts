@@ -11,6 +11,8 @@ import { auth } from "@/auth";
 
 import { AgentRowDataPacket } from "@/types/agent"; // the type we defined earlier
 
+import crypto from "crypto";
+
 export const connectToDB = async (): Promise<Connection> => {
   const dbConfig: ConnectionOptions = {
     host: DBHST,
@@ -27,6 +29,57 @@ export const connectToDB = async (): Promise<Connection> => {
 export async function closeDb(conn: mysql.Connection) {
   if (conn) {
     await conn.end();
+  }
+}
+
+export async function createAgentVerificationToken(agent_id: number) {
+  if (!agent_id) {
+    throw new Error("agent_id is required");
+  }
+
+  const conn = await connectToDB();
+
+  try {
+    // 1. Revoke all previous tokens for this agent
+    const revokeSql = `
+      UPDATE agent_verification_tokens
+      SET status = 'REVOKED'
+      WHERE agent_id = ? AND status = 'PENDING'
+    `;
+    await conn.execute(revokeSql, [agent_id]);
+
+    // 2. Generate secure 128-char token
+    const token = crypto.randomBytes(64).toString("hex");
+
+    // 3. Expiry (24h later)
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+    // 4. Insert new token with PENDING status
+    const insertSql = `
+      INSERT INTO agent_verification_tokens (agent_id, token, expires_at, status)
+      VALUES (?, ?, ?, 'PENDING')
+    `;
+    const [result] = await conn.execute(insertSql, [
+      agent_id,
+      token,
+      expiresAt,
+    ]);
+
+    return {
+      success: true,
+      message: "New verification token created",
+      token,
+      expiresAt,
+      insertId: (result as any).insertId,
+    };
+  } catch (error: any) {
+    console.error("Error creating verification token:", error);
+    return {
+      success: false,
+      message: error.message,
+    };
+  } finally {
+    conn.end();
   }
 }
 
